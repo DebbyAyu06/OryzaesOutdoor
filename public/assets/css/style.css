@@ -1,0 +1,43 @@
+.navbar {
+    opacity: 75%;
+}
+
+.banner-image {
+    background-image: url(../img/back2.png);
+    background-size: cover;
+}
+
+#deskripsi {
+    margin-top: 40px;
+}
+
+#kontak {
+    background-color: #335ACB;
+    padding-top: 50px;
+    padding-bottom: 40px;
+}
+
+#alamat {
+    margin-left: 15px;
+    font-size: 35px;
+    font-family: 'Times New Roman', Times, serif;
+    font: bold;
+}
+
+#login {
+    background-image: url('../img/back2.png');
+    background-size: cover;
+    height: 100vh;
+    padding-top: 200px;
+}
+
+#login-bg {
+    border-radius: 25px;
+}
+
+#form-login {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
