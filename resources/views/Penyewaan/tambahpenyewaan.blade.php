@@ -11,7 +11,12 @@
         <form action="{{ route('simpansewa') }}" method="post">
             {{ csrf_field() }}
             <div class="form-group">
-                <input type="text" id="name" class="form-control" placeholder="Nama Penyewa" disabled>
+                <select class="form-select" id="penyewa" name="penyewa">
+                    <option selected disabled>Pilih Nama Penyewa</option>
+                    @foreach($penyewa as $nmpen)
+                    <option value="{{ $nmpen->id }}">{{ $nmpen->nama }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="row form-group">
                 <div class="col">
@@ -25,13 +30,13 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="row container1">
-                    <a class="btn add_form_field">Add New Field &nbsp;
-                        <span style="font-size:16px; font-weight:bold;">+ </span>
-                    </a>
-                    <div class="row">
+                <div class="container1">
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a class="btn add_form_field btn-primary btn-sm">Tambah Alat</a>
+                    </div>
+                    <div class="row mt-3">
                         <div class="col">
-                            <select class="form-select" id="alat" name="alat">
+                            <select class="form-select" id="alat" name="alat[]">
                                 <option selected disabled>Pilih Alat</option>
                                 @foreach($alat as $row)
                                 <option value="{{ $row->id }}">{{ $row->nm_alat }}</option>
@@ -39,21 +44,19 @@
                             </select>
                         </div>
                         <div class="col">
-                            <input type="number" id="number" name="jmlh_alat" class="form-control"
+                            <input type="number" id="number" name="jmlh_alat[]" class="form-control"
                                 placeholder="Jumlah Alat">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <select class="form-select" name="status">
-                    <option selected disabled>Pilih Status</option>
-                    <option value="1">Sewa</option>
-                    <option value="2">Selesai</option>
+                <select class="form-select" id="diskon" name="diskon">
+                    <option selected disabled>Pilih Diskon</option>
+                    @foreach($diskon as $ttldis)
+                    <option value="{{ $ttldis->id }}">{{ $ttldis->ttl_diskon * 100 }} %</option>
+                    @endforeach
                 </select>
-            </div>
-            <div class="form-group">
-                <input type="text" id="name" name="diskon" class="form-control" placeholder="Diskon" disabled>
             </div>
             <div class="form-group">
                 <input type="text" id="name" name="total_byr" class="form-control" placeholder="Total">
@@ -78,18 +81,10 @@ $(document).ready(function() {
         if (x < max_fields) {
             x++;
             $(wrapper).append(
-                '<div class="form-group"><div class="row container1"><div class="row"><div class="col"><select class="form-select" id="alat" name="alat"><option selected disabled>Pilih Alat</option>@foreach($alat as $row)<option value="{{ $row->id }}">{{ $row->nm_alat }}</option>@endforeach</select></div><div class="col"><input type="number" id="number" name="jmlh_alat" class="form-control" placeholder="Jumlah Alat"></div></div></div></div>'
+                '<div class="form-group"><div class="container1"><div class="row mt-3"><div class="col"><select class="form-select" id ="alat" name="alat[]"><option selected disabled>Pilih Alat</option>@foreach($alat as $row)<option value="{{ $row->id }}">{{ $row->nm_alat }}</option>@endforeach</select></div><div class="col"><input type="number" id="number" name="jmlh_alat[]" class="form-control" placeholder="Jumlah Alat"></div></div></div></div>'
             ); //add input box
-        } else {
-            alert('You Reached the limits')
         }
     });
-
-    $(wrapper).on("click", ".delete", function(e) {
-        e.preventDefault();
-        $(this).parent('div').remove();
-        x--;
-    })
 });
 </script>
 @endsection

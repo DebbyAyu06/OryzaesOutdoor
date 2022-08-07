@@ -1,14 +1,14 @@
 @extends('sb-admin/app')
-@section('title', 'Penyewa')
+@section('title', 'Diskon')
 @section('content')
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Penyewa</h1>
+    <h1 class="h3 mb-0 text-gray-800">Diskon</h1>
 </div>
 
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <a href="{{ route('tambahpenyewa') }}" class="btn btn-success btn-icon-split">
+        <a href="{{ route('tambahdiskon') }}" class="btn btn-success btn-icon-split">
             <span class="icon text-white-50">
                 <i class="fas fa-plus-square"></i>
             </span>
@@ -18,30 +18,26 @@
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr class="text-center">
                         <th>NO</th>
                         <th>NAMA</th>
-                        <th>ALAMAT</th>
-                        <th>NOMOR HP</th>
-                        <th>JAMINAN</th>
+                        <th>Diskon</th>
                         <th>AKSI</th>
                     </tr>
                 </thead>
-                @foreach ($dtPenyewa as $item)
+                @foreach ($dtDiskon as $item)
                 <tbody>
                     <tr>
                         <td class="text-center">{{ $loop->iteration }}</td>
-                        <td>{{ $item['nama'] }}</td>
-                        <td>{{ $item['alamat'] }}</td>
-                        <td>{{ $item['nohp'] }}</td>
-                        <td class="text-center">{{ $item['jaminan'] }}</td>
+                        <td>{{ $item['nm_diskon'] }}</td>
+                        <td class="text-center">{{ $item->ttl_diskon * 100 }} %</td>
                         <td class="text-center">
-                            <a href="{{ url('editpenyewa', $item->id) }}"><i class="fas fa-edit"
+                            <a href="{{ url('editdiskon', $item->id) }}"><i class="fas fa-edit"
                                     aria-hidden="true"></i></a>
                             |
-                            <a href="{{ url('deletepenyewa', $item->id) }}"><i class="fas fa-trash-alt"
+                            <a href="{{ url('deletediskon', $item->id) }}"><i class="fas fa-trash-alt"
                                     aria-hidden="true" style="color: red"></i></a>
                         </td>
                     </tr>
@@ -51,5 +47,7 @@
         </div>
     </div>
 </div>
+
+
 
 @endsection

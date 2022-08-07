@@ -16,7 +16,7 @@ class PenyewaController extends Controller
     public function halamanpenyewa()
     {
         $dtPenyewa = Penyewa::all();
-        return view('Penyewa.penyewa', ['penyewa' => $dtPenyewa]);
+        return view('Penyewa.penyewa', compact('dtPenyewa'));
     }
 
     public function tambahpenyewa()

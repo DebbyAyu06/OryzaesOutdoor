@@ -2,16 +2,19 @@
 <html lang="en">
 
 <!-- head -->
-@include('artikel/template/head')
+@include('sb-admin/head')
 
-<body>
+<body id="page-top">
     <!-- navbar -->
     @include('artikel/template/navbar')
 
     @yield('content')
 
+    <!-- Scroll to Top Button-->
+    @include('sb-admin/button-topbar')
+
     <!-- javascript -->
-    @include('artikel/template/javascript')
+    @include('sb-admin/javascript')
 </body>
 
 </html>

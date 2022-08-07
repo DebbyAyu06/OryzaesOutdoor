@@ -17,7 +17,7 @@ class AlatController extends Controller
     public function halamanalat()
     {
         $dtAlat = Alat::all();
-        return view('Alat.alat', ['alat' => $dtAlat]);
+        return view('Alat.alat', compact('dtAlat'));
     }
 
     public function tambahalat()
