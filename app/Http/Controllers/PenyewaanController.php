@@ -6,6 +6,7 @@ use App\Models\Penyewaan;
 use App\Models\Alat;
 use App\Models\Penyewa;
 use App\Models\Diskon;
+use App\Models\Sewaalat;
 use Illuminate\Http\Request;
 
 class PenyewaanController extends Controller
@@ -33,20 +34,29 @@ class PenyewaanController extends Controller
     public function storesewa(Request $request)
     {
         $data = $request->all();
-        dd($data);
-        $sewaAlat = new Alat;
-        $sewaAlat->id_alat = $data['alat'];
-        $sewaAlat->jmlh_alat = $data['jmlh_alat'];
+        // dd($data);
 
-        Penyewaan::create([
-            'jmlh_alat' => $request->jmlh_alat,
-            'tgl_sewa' => $request->tgl_sewa,
-            'tgl_kmbl' => $request->tgl_kmbl,
-            'total_byr' => $request->total_byr,
-            'id_alat' => $request->alat,
-            'id_penyewa' => $request->penyewa,
-            'id_diskon' => $request->diskon,
-        ]);
+        $sewa = new Penyewaan;
+        $sewa->tgl_sewa = $data["tgl_sewa"];
+        $sewa->tgl_kmbl = $data["tgl_kmbl"];
+        $sewa->jmlh_alat = $data["jmlh_alat"];
+        $sewa->total_byr = $data["total_byr"];
+        $sewa->save();
+
+        $sewaAlat = new Sewaalat;
+        $sewaAlat->nama_alat = $sewa["nama_alat"];
+        $sewaAlat->jumlah_alat = $sewa["jumlah_alat"];
+        $sewaAlat->save();
+
+        // Penyewaan::create([
+        //     'jmlh_alat' => $request->jmlh_alat,
+        //     'tgl_sewa' => $request->tgl_sewa,
+        //     'tgl_kmbl' => $request->tgl_kmbl,
+        //     'total_byr' => $request->total_byr,
+        //     'id_alat' => $request->alat,
+        //     'id_penyewa' => $request->penyewa,
+        //     'id_diskon' => $request->diskon,
+        // ]);
 
         return redirect('penyewaan');
     }
