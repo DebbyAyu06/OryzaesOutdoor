@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Penyewaan;
 use App\Models\Alat;
+use App\Models\Penyewa;
 use Illuminate\Http\Request;
 
 class PenyewaanController extends Controller
@@ -23,20 +24,27 @@ class PenyewaanController extends Controller
     public function tambahsewa()
     {
         $alat = Alat::all();
-        return view('Penyewaan.tambahpenyewaan', compact('alat'));
+        $penyewa = Penyewa::all();
+        return view('Penyewaan.tambahpenyewaan', compact('alat', 'penyewa'));
     }
 
     public function storesewa(Request $request)
     {
-        Penyewaan::create([
-            'jmlh_alat' => $request->jmlh_alat,
-            'tgl_sewa' => $request->tgl_sewa,
-            'tgl_kmbl' => $request->tgl_kmbl,
-            'total_byr' => $request->total_byr,
-            'status' => $request->status,
-            'id_alat' => $request->alat,
-        ]);
-        return redirect('penyewaan');
+        dd($request->all());
+        // $alat = $request->alat;
+        // $jumlah = $request->jmlh_alat;
+        // for ($i=0; $i < count($alat); $i++) {
+        //     Penyewaan::create([
+        //         'jmlh_alat' => $jumlah[$i],
+        //         'tgl_sewa' => $request->tgl_sewa,
+        //         'tgl_kmbl' => $request->tgl_kmbl,
+        //         'total_byr' => $request->total_byr,
+        //         'status' => $request->status,
+        //         'id_alat' => $alat[$i],
+        //     ]);
+        // }
+
+        // return redirect('penyewaan');
     }
 
     public function show($id)

@@ -41,3 +41,9 @@
     margin-left: 10px;
     margin-right: 10px;
 }
+
+.add_form_field {
+    margin: 10px 0;
+    background-color: #eee;
+    width: 100%;
+}
