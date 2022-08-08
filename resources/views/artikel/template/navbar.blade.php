@@ -15,10 +15,10 @@
 
             </div>
             <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item {{ request()->is('login') ? 'active' : '' }}">
                     <a href="{{ route('login') }}" class="nav-link text-white">Login</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ request()->is('register') ? 'active' : '' }}">
                     <a href="{{ route('register') }}" class="nav-link text-white">Register</a>
                 </li>
             </ul>

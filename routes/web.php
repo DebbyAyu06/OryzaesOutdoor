@@ -7,6 +7,7 @@ use App\Http\Controllers\PenyewaanController;
 use App\Http\Controllers\ArtikelController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DiskonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +28,8 @@ Route::get('/', [ArtikelController::class, 'index'])->name('index');
 
 Route::group(['middleware' => ['auth']], function () {
 
-    // Route::get('/dashboard', function () {return view('dashboard');});
     Route::get('/dashboard', [DashboardController::Class, 'index'])->name('dashboard');
+
     Route::get('/penyewa', [PenyewaController::Class, 'halamanpenyewa'])->name('penyewa');
     Route::get('/tambahpenyewa', [PenyewaController::Class, 'tambahpenyewa'])->name('tambahpenyewa');
     Route::post('/simpanpenyewa', [PenyewaController::Class, 'storepenyewa'])->name('simpanpenyewa');
@@ -39,9 +40,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/penyewaan', [PenyewaanController::Class, 'halamanpenyewaan'])->name('penyewaan');
     Route::get('/tambahsewa', [PenyewaanController::Class, 'tambahsewa'])->name('tambahsewa');
     Route::post('/simpansewa', [PenyewaanController::Class, 'storesewa'])->name('simpansewa');
+    Route::get('/showsewa/{id}', [PenyewaanController::Class, 'show'])->name('showsewa');
     Route::get('/editsewa/{id}', [PenyewaanController::Class, 'editsewa'])->name('editsewa');
     Route::post('/updatesewa/{id}', [PenyewaanController::Class, 'update'])->name('updatesewa');
     Route::get('/deletesewa/{id}', [PenyewaanController::Class, 'destroy'])->name('deletesewa');
+    Route::get('/statussewa/{id}', [PenyewaanController::Class, 'status'])->name('statussewa');
 
     Route::get('/alat', [AlatController::Class, 'halamanalat'])->name('alat');
     Route::get('/tambahalat', [AlatController::Class, 'tambahalat'])->name('tambahalat');
@@ -49,4 +52,11 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/editalat/{id}', [AlatController::Class, 'editalat'])->name('editalat');
     Route::post('/updatealat/{id}', [AlatController::Class, 'update'])->name('updatealat');
     Route::get('/deletealat/{id}', [AlatController::Class, 'destroy'])->name('deletealat');
+
+    Route::get('/diskon', [DiskonController::Class, 'halamandiskon'])->name('diskon');
+    Route::get('/tambahdiskon', [DiskonController::Class, 'tambahdiskon'])->name('tambahdiskon');
+    Route::post('/simpandiskon', [DiskonController::Class, 'storediskon'])->name('simpandiskon');
+    Route::get('/editdiskon/{id}', [DiskonController::Class, 'editdiskon'])->name('editdiskon');
+    Route::post('/updatediskon/{id}', [DiskonController::Class, 'update'])->name('updatediskon');
+    Route::get('/deletediskon/{id}', [DiskonController::Class, 'destroy'])->name('deletdiskon');
 });

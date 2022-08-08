@@ -1,4 +1,5 @@
 @extends('sb-admin/app')
+@section('title', 'Penyewaan')
 @section('content')
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -36,15 +37,30 @@
                 <tbody>
                     <tr>
                         <td class="text-center">{{ $loop->iteration }}</td>
-                        <td></td>
+                        <td>{{ $sewa->penyewa->nama }}</td>
                         <td>{{ $sewa['tgl_sewa'] }}</td>
                         <td>{{ $sewa['tgl_kmbl'] }}</td>
                         <td>{{ $sewa->alat->nm_alat }}</td>
                         <td>{{ $sewa['jmlh_alat'] }}</td>
-                        <td>{{ $sewa->status }}</td>
-                        <td>{{ $sewa->diskon }}</td>
+                        <td class="text-center">
+                            <div class="badge {{ ($sewa->status == 1) ? 'bg-success' : 'bg-danger' }}"
+                                style="width: 3rem;">
+                                {{ ($sewa->status == 1) ? 'Aktif' : 'Selesai' }}
+                            </div>
+                            @if($sewa->status == 1)
+                            <a href="{{ url('statussewa', $sewa->id) }}" class="btn btn-sm btn-danger"
+                                style="width: 3rem; font-size: 9px; ">Selesai</a>
+                            @else
+                            <a href="{{ url('statussewa', $sewa->id) }}" class="btn btn-sm btn-success"
+                                style="width: 3rem; font-size: 8px; ">Aktifkan</a>
+                            @endif
+                        </td>
+                        <td>{{ $sewa->diskon->ttl_diskon * 100 }} %</td>
                         <td>{{ $sewa['total_byr'] }}</td>
                         <td class="text-center">
+                            <a href="{{ url('showsewa', $sewa->id) }}"><i class="fas fa-eye" aria-hidden="true"
+                                    style="color: black"></i></a>
+                            |
                             <a href="{{ url('editsewa', $sewa->id) }}"><i class="fas fa-edit"
                                     aria-hidden="true"></i></a>
                             |
@@ -58,5 +74,8 @@
         </div>
     </div>
 </div>
+
+
+
 
 @endsection

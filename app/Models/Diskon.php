@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Penyewa extends Model
+class Diskon extends Model
 {
-    protected $table = 'penyewa';
+    protected $table = 'diskon';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'id', 'nama', 'alamat', 'nohp', 'jaminan',
+        'id', 'nm_diskon', 'ttl_diskon',
     ];
 
     public function penyewaan()

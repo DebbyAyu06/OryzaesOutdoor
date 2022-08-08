@@ -31,7 +31,7 @@
                         <th>AKSI</th>
                     </tr>
                 </thead>
-                @foreach ($alat as $itemAlt)
+                @foreach ($dtAlat as $itemAlt)
                 <tbody>
                     <tr>
                         <td class="text-center">{{ $loop->iteration }}</td>
