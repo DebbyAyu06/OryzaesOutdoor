@@ -27,4 +27,9 @@ class Penyewaan extends Model
     {
         return $this->belongsTo(Diskon::class, 'id_diskon');
     }
+
+    public function sewa()
+    {
+        return $this->hasMany(Sewaalat::class, 'penyewaan_id');
+    }
 }

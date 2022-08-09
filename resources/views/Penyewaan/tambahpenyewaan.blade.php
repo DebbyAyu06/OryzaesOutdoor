@@ -11,7 +11,7 @@
         <form action="{{ route('simpansewa') }}" method="post">
             {{ csrf_field() }}
             <div class="form-group">
-                <select class="form-select" id="penyewa" name="penyewa">
+                <select class="form-select" id="penyewa" name="penyewa" required>
                     <option selected disabled>Pilih Nama Penyewa</option>
                     @foreach($penyewa as $nmpen)
                     <option value="{{ $nmpen->id }}">{{ $nmpen->nama }}</option>
@@ -23,10 +23,7 @@
                     <input type="date" value="2022-07-23" class="form-control" name="tgl_sewa" placeholder="Tanggal Sewa">
                 </div>
                 <div class="col">
-                    <input type="date" value="2022-07-30" class="form-control" name="tgl_kmbl" placeholder="Tanggal Kembali">
-                </div>
-                <div class="col">
-                    <input type="text" id="name" class="form-control" placeholder="Estimasi" disabled>
+                    <input type="text" id="lama_sewa" name="lama_sewa" class="form-control" placeholder="Lama Sewa" required>
                 </div>
             </div>
             <div class="form-group">
@@ -55,12 +52,9 @@
                 <select class="form-select" id="diskon" name="diskon">
                     <option selected disabled>Pilih Diskon</option>
                     @foreach($diskon as $ttldis)
-                    <option value="{{ $ttldis->id }}">{{ $ttldis->ttl_diskon * 100 }} %</option>
+                    <option value="{{ $ttldis->id }}">{{ $ttldis->nm_diskon }} ({{ $ttldis->ttl_diskon }}%)</option>
                     @endforeach
                 </select>
-            </div>
-            <div class="form-group">
-                <input type="text" id="name" name="total_byr" class="form-control" placeholder="Total">
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-success">Simpan</button>

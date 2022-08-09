@@ -25,14 +25,14 @@ class DiskonController extends Controller
 
     public function storediskon(Request $request)
     {
-        if($request->ttl_diskon == 0){
-            $diskon = 0;
-        }else{
-            $diskon = $request->ttl_diskon / 100 ;
-        }
+        // if($request->ttl_diskon == 0){
+        //     $diskon = 0;
+        // }else{
+        //     $diskon = $request->ttl_diskon / 100 ;
+        // }
         Diskon::create([
             'nm_diskon' => $request->nm_diskon,
-            'ttl_diskon' => $diskon,
+            'ttl_diskon' => $request->ttl_diskon,
         ]);
         return redirect('diskon');
     }

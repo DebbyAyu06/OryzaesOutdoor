@@ -8,6 +8,7 @@ use App\Models\Penyewa;
 use App\Models\Diskon;
 use App\Models\Sewaalat;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class PenyewaanController extends Controller
 {
@@ -19,7 +20,7 @@ class PenyewaanController extends Controller
 
     public function halamanpenyewaan()
     {
-        $penyewaan = Penyewaan::all();
+        $penyewaan = Penyewaan::where('status', '1')->get();
         return view('Penyewaan.penyewaan', compact('penyewaan'));
     }
 
@@ -34,30 +35,38 @@ class PenyewaanController extends Controller
     public function storesewa(Request $request)
     {
         $data = $request->all();
-        // dd($data);
 
         $sewa = new Penyewaan;
+        $sewa->id_penyewa = $data["penyewa"];
         $sewa->tgl_sewa = $data["tgl_sewa"];
-        $sewa->tgl_kmbl = $data["tgl_kmbl"];
-        $sewa->jmlh_alat = $data["jmlh_alat"];
-        $sewa->total_byr = $data["total_byr"];
+        $sewa->tgl_kmbl = Carbon::parse($data["tgl_sewa"])->addDays($data["lama_sewa"]);
+        $sewa->status = 1;
+        $total = 0;
+
+        foreach ($data["alat"] as $key => $value) {
+            $alat = Alat::findorfail($data["alat"][$key]);
+            $harga = $alat->harga;
+            $jmlh_alat = $data["jmlh_alat"][$key];
+            $total = $total + ($harga * $jmlh_alat) * $data["lama_sewa"];
+        }
+
+        if ($request->diskon) {
+            $dis = Diskon::findorfail($data["diskon"]);
+            $sewa->total_byr = $total - ($total * $dis->ttl_diskon / 100);
+            $sewa->id_diskon = $data["diskon"];
+        } else {
+            $sewa->total_byr = $total;
+        }
+
         $sewa->save();
 
-        $sewaAlat = new Sewaalat;
-        $sewaAlat->nama_alat = $sewa["nama_alat"];
-        $sewaAlat->jumlah_alat = $sewa["jumlah_alat"];
-        $sewaAlat->save();
-
-        // Penyewaan::create([
-        //     'jmlh_alat' => $request->jmlh_alat,
-        //     'tgl_sewa' => $request->tgl_sewa,
-        //     'tgl_kmbl' => $request->tgl_kmbl,
-        //     'total_byr' => $request->total_byr,
-        //     'id_alat' => $request->alat,
-        //     'id_penyewa' => $request->penyewa,
-        //     'id_diskon' => $request->diskon,
-        // ]);
-
+        foreach ($data["alat"] as $key => $value) {
+            Sewaalat::create([
+                'penyewaan_id' => $sewa->id,
+                'id_alat' => $data["alat"][$key],
+                'jumlah_alat' => $data["jmlh_alat"][$key],
+            ]);
+        }
         return redirect('penyewaan');
     }
 
@@ -87,15 +96,15 @@ class PenyewaanController extends Controller
         return back();
     }
 
-    public function status($id)
+    public function kembali(Request $request, $id)
     {
         $pen = Penyewaan::where('id', $id)->first();
-        $status_sekarang = $pen->status;
-        if($status_sekarang == 1){
-            Penyewaan::where('id', $id)->update(['status'=>0]);
-        }else{
-            Penyewaan::where('id', $id)->update(['status'=>1]);
-        }
+        // $status_sekarang = $pen->status;
+        // if($status_sekarang == 1){
+        Penyewaan::where('id', $id)->update(['status'=> 1, 'denda'=> $request->denda, 'tgl_kmbl'=> $request->tgl_kmbl]);
+        // }else{
+        //     Penyewaan::where('id', $id)->update(['status'=>1]);
+        // }
         return redirect('penyewaan');
     }
 }

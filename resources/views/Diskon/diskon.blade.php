@@ -32,7 +32,7 @@
                     <tr>
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td>{{ $item['nm_diskon'] }}</td>
-                        <td class="text-center">{{ $item->ttl_diskon * 100 }} %</td>
+                        <td class="text-center">{{ $item->ttl_diskon }} %</td>
                         <td class="text-center">
                             <a href="{{ url('editdiskon', $item->id) }}"><i class="fas fa-edit"
                                     aria-hidden="true"></i></a>

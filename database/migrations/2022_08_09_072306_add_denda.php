@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSewaAlatTable extends Migration
+class AddDenda extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateSewaAlatTable extends Migration
      */
     public function up()
     {
-        Schema::create('sewa_alat', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_alat');
-            $table->integer('jumlah_alat');
-            $table->timestamps();
+        Schema::table('penyewaan', function (Blueprint $table) {
+            $table->float('denda')->after('total_byr');
         });
     }
 
@@ -28,6 +25,6 @@ class CreateSewaAlatTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sewa_alat');
+        //
     }
 }

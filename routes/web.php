@@ -44,7 +44,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/editsewa/{id}', [PenyewaanController::Class, 'editsewa'])->name('editsewa');
     Route::post('/updatesewa/{id}', [PenyewaanController::Class, 'update'])->name('updatesewa');
     Route::get('/deletesewa/{id}', [PenyewaanController::Class, 'destroy'])->name('deletesewa');
-    Route::get('/statussewa/{id}', [PenyewaanController::Class, 'status'])->name('statussewa');
+    Route::post('/kembalisewa/{id}', [PenyewaanController::Class, 'kembali'])->name('kembalisewa');
 
     Route::get('/alat', [AlatController::Class, 'halamanalat'])->name('alat');
     Route::get('/tambahalat', [AlatController::Class, 'tambahalat'])->name('tambahalat');

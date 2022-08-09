@@ -12,7 +12,7 @@ class DashboardController extends Controller
     public function index()
     {
         $jumlah_alat = Alat::count();
-        $jumlah_sewa = Penyewaan::count();
+        $jumlah_sewa = Penyewaan::where('status', '1')->count();
         $jumlah_penyewa = Penyewa::count();
         return view('dashboard', compact('jumlah_alat', 'jumlah_sewa', 'jumlah_penyewa'));
     }
