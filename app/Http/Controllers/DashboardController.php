@@ -17,3 +17,4 @@ class DashboardController extends Controller
         return view('dashboard', compact('jumlah_alat', 'jumlah_sewa', 'jumlah_penyewa'));
     }
 }
+
